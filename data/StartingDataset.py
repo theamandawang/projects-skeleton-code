@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 # from matplotlib import image
 # from matplotlib import pyplot
 
+#pass in path as var in constructor
 # look into altering images for data augmentation here.
 class StartingDataset(torch.utils.data.Dataset):
     """

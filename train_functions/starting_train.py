@@ -56,6 +56,7 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
+            print('batch is running in train loader')
 
 
 
@@ -70,6 +71,8 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
 
                 # for data in iter(train_loader):
                 batch_inputs, batch_labels = batch
+                batch_inputs = batch_inputs.to(device)
+                batch_labels = batch_labels.to(device)
                 predictions = model(batch_inputs).argmax(axis=1)
                 accuracy = 100 * compute_accuracy(predictions, batch_labels)
                 print("Training ", accuracy, "%")
@@ -81,11 +84,13 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
                 model.train()
             print('end of if')
             step += 1
+            print(step)
 
-        print(step)
+        # print(step)
 
 
 def compute_accuracy(outputs, labels):
+
     """
     Computes the accuracy of a model's predictions.
 
