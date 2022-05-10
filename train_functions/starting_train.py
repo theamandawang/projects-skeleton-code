@@ -86,7 +86,7 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
             step += 1
             print(step)
 
-        # print(step)
+        print(step)
 
 
 def compute_accuracy(outputs, labels):
@@ -134,6 +134,8 @@ def evaluate(val_loader, model, loss_fn):
 
     for data in iter(val_loader):
         batch_inputs, batch_labels = data
+        batch_inputs = batch_inputs.to(device)
+        batch_labels = batch_labels.to(device)
         predictions = model(batch_inputs).argmax(axis=1)
     accuracy = 100 * compute_accuracy(predictions, batch_labels)
     print("Validation accuracy: ", accuracy, "%")
