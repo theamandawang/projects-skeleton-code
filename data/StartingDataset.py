@@ -2,12 +2,15 @@ import torch
 import torchvision
 import numpy
 import constants
+import random
 from PIL import Image
 import pandas
 #from resizeimage import resizeimage
 import matplotlib.pyplot as plt
 # from matplotlib import image
 # from matplotlib import pyplot
+
+# look into altering images for data augmentation here.
 class StartingDataset(torch.utils.data.Dataset):
     """
     Dataset that contains 100000 3x224x224 black images (all zeros).
@@ -21,9 +24,12 @@ class StartingDataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         ## do loading here
         image_name, label = self.csv_data[index]
-
+        funcs = [torchvision.transforms.CenterCrop(100), torchvision.transforms.RandomRotation(50, expand=True)]
+        i = random.randint(0, 1)
+        # transform image
         # save image
         with Image.open(constants.PATH_TO_DATA+'/train_images/'+image_name) as inputs:
+            inputs = funcs[i](inputs)
             inputs = torchvision.transforms.functional.resize(inputs, (224, 224))
             inputs = torchvision.transforms.ToTensor()(inputs)
             return inputs, label

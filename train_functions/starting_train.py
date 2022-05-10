@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
 import constants
-
 def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
     # Use GPU
     if torch.cuda.is_available():  # Check if GPU is available
@@ -23,6 +22,8 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
         hyperparameters: Dictionary containing hyperparameters.
         n_eval:          Interval at which we evaluate our model.
     """
+
+    ##pytorch torchvision.transforms to create "new images"  by altering originals.
 
     # Get keyword arguments
     batch_size, epochs = hyperparameters["batch_size"], hyperparameters["epochs"]
@@ -44,7 +45,7 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
         print(f"Epoch {epoch + 1} of {epochs}")
 
         # Loop over each batch in the dataset
-        for batch in tqdm(train_loader):
+        for batch in train_loader:
             # TODO: Backpropagation and gradient descent
             model.train()
             batch_inputs, batch_labels = batch
@@ -55,12 +56,11 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-       hhhfdsa
 
 
 
     # Periodically evaluate our model + log to Tensorboard
-            if step % n_eval == 0:
+            if ((step % n_eval == 0) and (step != 0)):
                 # TODO:
                 # Compute training loss and accuracy.
                 # Log the results to Tensorboard.
@@ -72,13 +72,14 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
                 batch_inputs, batch_labels = batch
                 predictions = model(batch_inputs).argmax(axis=1)
                 accuracy = 100 * compute_accuracy(predictions, batch_labels)
-                print(accuracy, "%")
+                print("Training ", accuracy, "%")
                 # TODO:
                 # Compute validation loss and accuracy.
                 # Log the results to Tensorboard.
                 # Don't forget to turn off gradient calculations!
                 evaluate(val_loader, model, loss_fn)
                 model.train()
+            print('end of if')
             step += 1
 
         print(step)
@@ -104,10 +105,7 @@ def compute_accuracy(outputs, labels):
 def evaluate(val_loader, model, loss_fn):
     """
     Computes the loss and accuracy of a model on the validation dataset.
-
-    TODO!
     """
-    pass
     if torch.cuda.is_available():  # Check if GPU is available
         device = torch.device('cuda')
     else:
@@ -118,7 +116,7 @@ def evaluate(val_loader, model, loss_fn):
     model.eval()
     loss_fn = nn.CrossEntropyLoss()
 
-    for batch in tqdm(val_loader):
+    for batch in val_loader:
         batch_inputs, batch_labels = batch
         batch_inputs = batch_inputs.to(device)
         batch_labels = batch_labels.to(device)
@@ -133,4 +131,4 @@ def evaluate(val_loader, model, loss_fn):
         batch_inputs, batch_labels = data
         predictions = model(batch_inputs).argmax(axis=1)
     accuracy = 100 * compute_accuracy(predictions, batch_labels)
-    print(accuracy, "%")
+    print("Validation accuracy: ", accuracy, "%")
