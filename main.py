@@ -1,9 +1,12 @@
 import os
+<<<<<<< HEAD
 import numpy as np
+=======
+>>>>>>> main
 import torch
 import constants
 from data.StartingDataset import StartingDataset
-from networks.StartingNetwork import StartingNetwork
+from networks.StartingNetwork import StartingNetwork, Model_b
 from train_functions.starting_train import starting_train
 
 
@@ -13,7 +16,8 @@ def main():
                        "batch_size": constants.BATCH_SIZE}
 
     # TODO: Add GPU support. This line of code might be helpful.
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device('cuda')
 
     print("Epochs:", constants.EPOCHS)
     print("Batch size:", constants.BATCH_SIZE)
@@ -25,6 +29,7 @@ def main():
 # Initalize dataset and model. Then train the model!
     train_dataset = StartingDataset(True)
     val_dataset = StartingDataset(False)
+<<<<<<< HEAD
     samp1 = np.random.choice(len(train_dataset), size=int(0.1*len(train_dataset)), replace=False)
     samp2 = np.random.choice(len(val_dataset), size=int(0.1*len(val_dataset)), replace=False)
 
@@ -36,6 +41,9 @@ def main():
     # valloader_1 = torch.utils.data.DataLoader(valset_1, batch_size=4,
     #                                      shuffle=True, num_workers=2)
     model = StartingNetwork()
+=======
+    model = Model_b()
+>>>>>>> main
     starting_train(
         train_dataset=trainset_1,
         val_dataset=valset_1,

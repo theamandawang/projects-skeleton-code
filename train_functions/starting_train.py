@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from tqdm import tqdm
 import constants
 def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
     # Use GPU
@@ -56,10 +55,6 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-            print('batch is running in train loader')
-
-
-
     # Periodically evaluate our model + log to Tensorboard
             if ((step % n_eval == 0) and (step != 0)):
                 # TODO:
@@ -111,10 +106,11 @@ def evaluate(val_loader, model, loss_fn):
     """
     Computes the loss and accuracy of a model on the validation dataset.
     """
+    # pass
     if torch.cuda.is_available():  # Check if GPU is available
         device = torch.device('cuda')
     else:
-        device = torch.device('cpu')
+       device = torch.device('cpu')
 
         # Move the model to the GPU
     model = model.to(device)
@@ -137,5 +133,6 @@ def evaluate(val_loader, model, loss_fn):
         batch_inputs = batch_inputs.to(device)
         batch_labels = batch_labels.to(device)
         predictions = model(batch_inputs).argmax(axis=1)
+
     accuracy = 100 * compute_accuracy(predictions, batch_labels)
     print("Validation accuracy: ", accuracy, "%")

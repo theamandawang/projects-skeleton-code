@@ -1,8 +1,12 @@
 import torch
 import torch.nn as nn
+<<<<<<< HEAD
 import torch.nn.functional as F
 import torch
 #nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0)
+=======
+import torchvision.models as models
+>>>>>>> main
 
 
 class StartingNetwork(torch.nn.Module):
@@ -41,3 +45,22 @@ class StartingNetwork(torch.nn.Module):
         # # x = self.ReLU(x)
         # # x = self.layer3(x)
         return x
+
+
+class Model_b(nn.Module):
+    def __init__(self):
+        super(Model_b, self).__init__()
+        self.encoder = models.resnet18(pretrained = True)
+        self.encoder = nn.Sequential(*list(self.encoder.children())[:-1])
+        self.fc = nn.Linear(512, 5)
+
+    def forward(self, x):
+        with torch.no_grad():
+            features = self.encoder(x)
+        features = torch.flatten(features, 1)
+        return self.fc(features)
+
+
+
+
+
