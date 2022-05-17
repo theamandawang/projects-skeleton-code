@@ -77,9 +77,7 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
                 # Don't forget to turn off gradient calculations!
                 evaluate(val_loader, model, loss_fn)
                 model.train()
-            print('end of if')
             step += 1
-            print(step)
 
         print(step)
 
