@@ -1,12 +1,6 @@
 import torch
 import torch.nn as nn
-<<<<<<< HEAD
-import torch.nn.functional as F
-import torch
-#nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0)
-=======
 import torchvision.models as models
->>>>>>> main
 
 
 class StartingNetwork(torch.nn.Module):
