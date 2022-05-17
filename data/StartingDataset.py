@@ -17,6 +17,7 @@ class StartingDataset(torch.utils.data.Dataset):
 
     def __init__(self, isTrain, datapath = constants.PATH_TO_DATA):
         self.datapath = datapath
+        self.isTrain = isTrain
         if(isTrain):
             self.csv_data = pandas.read_csv(self.datapath + 'train.csv').head(19257).to_numpy()
         else:
