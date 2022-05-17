@@ -29,7 +29,7 @@ class StartingDataset(torch.utils.data.Dataset):
         # transform image
         # save image
         with Image.open(constants.PATH_TO_DATA+'/train_images/'+image_name) as inputs:
-            if(i > 0):
+            if(i < 2):
                 inputs = funcs[i](inputs)
             else:
                 pass
