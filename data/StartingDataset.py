@@ -15,7 +15,7 @@ class StartingDataset(torch.utils.data.Dataset):
     """
     ###create this function
 
-    def __init__(self, isTrain, datapath = 'cassava-leaf-disease-classification/'):
+    def __init__(self, isTrain, datapath = constants.PATH_TO_DATA):
         self.datapath = datapath
         if(isTrain):
             self.csv_data = pandas.read_csv(self.datapath + 'train.csv').head(19257).to_numpy()
