@@ -30,11 +30,11 @@ class StartingDataset(torch.utils.data.Dataset):
         # transform image
         # save image
         with Image.open(constants.PATH_TO_DATA+'/train_images/'+image_name) as inputs:
-            if(self.isTrain):
-                if(i < 2):
-                    inputs = funcs[i](inputs)
-                else:
-                    pass
+            # if(self.isTrain):
+            #     if(i < 2):
+            #         inputs = funcs[i](inputs)
+            #     else:
+            #         pass
             inputs = torchvision.transforms.functional.resize(inputs, (224, 224))
             inputs = torchvision.transforms.ToTensor()(inputs)
             return inputs, label
