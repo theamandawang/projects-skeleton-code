@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from tqdm import tqdm
 import constants
 
 def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
@@ -44,7 +43,7 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
         print(f"Epoch {epoch + 1} of {epochs}")
 
         # Loop over each batch in the dataset
-        for batch in tqdm(train_loader):
+        for batch in train_loader:
             # TODO: Backpropagation and gradient descent
             model.train()
             batch_inputs, batch_labels = batch
@@ -116,7 +115,7 @@ def evaluate(val_loader, model, loss_fn):
     model.eval()
     loss_fn = nn.CrossEntropyLoss()
 
-    for batch in tqdm(val_loader):
+    for batch in val_loader:
         batch_inputs, batch_labels = batch
         batch_inputs = batch_inputs.to(device)
         batch_labels = batch_labels.to(device)
