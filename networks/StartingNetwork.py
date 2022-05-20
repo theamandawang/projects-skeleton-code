@@ -49,12 +49,7 @@ class Model_b(nn.Module):
         self.fc = nn.Linear(512, 5)
 
     def forward(self, x):
-        with torch.no_grad():
-            features = self.encoder(x)
+        # with torch.no_grad():
+        features = self.encoder(x)
         features = torch.flatten(features, 1)
         return self.fc(features)
-
-
-
-
-
