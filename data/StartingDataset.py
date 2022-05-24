@@ -25,13 +25,13 @@ class StartingDataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         ## do loading here
         image_name, label = self.csv_data[index]
-        funcs = [torchvision.transforms.CenterCrop(300), torchvision.transforms.ColorJitter(brightness=2, contrast=2, saturation=1, hue=0.5), torchvision.transforms.RandomRotation(50, expand=True)]
-        i = random.randint(0, 3)
+        funcs = [torchvision.transforms.GaussianBlur(kernel_size=(7, 13), sigma=(0.1, 0.2)), torchvision.transforms.CenterCrop(300), torchvision.transforms.ColorJitter(brightness=2, contrast=2, saturation=1, hue=0.5), torchvision.transforms.RandomRotation(50, expand=True)]
+        i = random.randint(0, 4)
         # transform image
         # save image
         with Image.open(constants.PATH_TO_DATA+'/train_images/'+image_name) as inputs:
             if(self.isTrain):
-                if(i < 3):
+                if(i < 4):
                     inputs = funcs[i](inputs)
                 else:
                     pass

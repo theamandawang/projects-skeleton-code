@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 
+#pytorch model.save, model.load
+#tensorboard; log results to tensorboard 
 
 class StartingNetwork(torch.nn.Module):
     """
@@ -32,7 +34,6 @@ class StartingNetwork(torch.nn.Module):
         # x = F.relu(self.dense1(x)) 
         # # x = F.relu(self.dense2(x)) 
         # x = self.dense3(x) 
-        # # 
         # # x = self.layer1(x)
         # # x = self.ReLU(x)
         # # x = self.layer2(x)
