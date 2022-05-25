@@ -75,7 +75,7 @@ def starting_train( train_dataset, val_dataset, model, hyperparameters, n_eval):
                 # Compute validation loss and accuracy.
                 # Log the results to Tensorboard.
                 # Don't forget to turn off gradient calculations!
-                evaluate(val_loader, model, loss_fn)
+                evaluate(val_loader, model, loss_fn, epoch)
                 model.train()
             step += 1
 
@@ -100,7 +100,7 @@ def compute_accuracy(outputs, labels):
     return n_correct / n_total
 
 
-def evaluate(val_loader, model, loss_fn):
+def evaluate(val_loader, model, loss_fn, epoch):
     """
     Computes the loss and accuracy of a model on the validation dataset.
     """
@@ -134,3 +134,4 @@ def evaluate(val_loader, model, loss_fn):
 
     accuracy = 100 * compute_accuracy(predictions, batch_labels)
     print("Validation accuracy: ", accuracy, "%")
+    torch.save(model.state_dict(), './epoch'+str(epoch))

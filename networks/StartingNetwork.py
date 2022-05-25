@@ -12,7 +12,7 @@ class StartingNetwork(torch.nn.Module):
 # torchvision.models.resnet18
     def __init__(self):
         super().__init__()
-        self.model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=True)
+        self.model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet34', pretrained=True)
         num_features = self.model.fc.in_features
         self.model.fc = nn.Linear(num_features, 5)
 
@@ -45,7 +45,7 @@ class StartingNetwork(torch.nn.Module):
 class Model_b(nn.Module):
     def __init__(self):
         super(Model_b, self).__init__()
-        self.encoder = models.resnet18(pretrained = True)
+        self.encoder = models.resnet34(pretrained = True)
         self.encoder = nn.Sequential(*list(self.encoder.children())[:-1])
         self.fc = nn.Linear(512, 5)
 
